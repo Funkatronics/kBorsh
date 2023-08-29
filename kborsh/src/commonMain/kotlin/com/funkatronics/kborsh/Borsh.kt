@@ -103,6 +103,14 @@ class BorshEncoder : AbstractEncoder() {
         return super.beginCollection(descriptor, collectionSize)
     }
 
+    override fun <T> encodeSerializableValue(serializer: SerializationStrategy<T>, value: T) {
+        when (value) {
+            is HashMap<*, *> -> super.encodeSerializableValue(serializer, value.toMap() as T)
+            is HashSet<*> -> super.encodeSerializableValue(serializer, value.toSet() as T)
+            else -> super.encodeSerializableValue(serializer, value)
+        }
+    }
+
     //region PRIVATE METHODS
     private fun encodeBytes(bytes: ByteArray) = bytes.forEach { b -> encodeByte(b) }
 
