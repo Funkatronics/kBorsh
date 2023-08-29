@@ -65,5 +65,6 @@ kotlin {
 }
 
 mavenPublishing {
-    coordinates("io.github.funkatronics", "kborsh", "main-SNAPSHOT")
+    val artifactId: String by project
+    coordinates(group as String, artifactId, version as String)
 }
