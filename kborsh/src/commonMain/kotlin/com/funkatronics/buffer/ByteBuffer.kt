@@ -7,7 +7,7 @@
 
 package com.funkatronics.buffer
 
-interface ByteBuffer {
+internal interface ByteBuffer {
     val capacity: Int
     val order: ByteOrder
 
@@ -62,5 +62,5 @@ interface ByteBuffer {
     companion object
 }
 
-expect fun ByteBuffer.Companion.allocate(capacity: Int): ByteBuffer
-expect fun ByteBuffer.Companion.wrap(array: ByteArray): ByteBuffer
+internal expect fun ByteBuffer.Companion.allocate(capacity: Int): ByteBuffer
+internal expect fun ByteBuffer.Companion.wrap(array: ByteArray): ByteBuffer

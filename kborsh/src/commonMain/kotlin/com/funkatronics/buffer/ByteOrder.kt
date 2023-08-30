@@ -1,6 +1,6 @@
 package com.funkatronics.buffer
 
-enum class ByteOrder {
+internal enum class ByteOrder {
     BIG_ENDIAN,
     LITTLE_ENDIAN
 }

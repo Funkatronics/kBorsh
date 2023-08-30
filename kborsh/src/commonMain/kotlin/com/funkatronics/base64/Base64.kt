@@ -7,7 +7,7 @@
 
 package com.funkatronics.base64
 
-interface Base64Encoder {
+internal interface Base64Encoder {
     fun decode(src: ByteArray): ByteArray
     fun encode(src: ByteArray): ByteArray
 
@@ -20,6 +20,6 @@ interface Base64Encoder {
     }
 }
 
-expect object Base64Factory {
+internal expect object Base64Factory {
     fun createEncoder(): Base64Encoder
 }

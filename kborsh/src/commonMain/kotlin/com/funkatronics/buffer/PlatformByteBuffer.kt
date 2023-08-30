@@ -12,7 +12,7 @@ import com.ditchoom.buffer.PlatformBuffer
 import com.ditchoom.buffer.allocate
 import com.ditchoom.buffer.wrap
 
-class PlatformByteBuffer(private var buffer: PlatformBuffer) : ByteBuffer {
+internal class PlatformByteBuffer(private var buffer: PlatformBuffer) : ByteBuffer {
 
     override val capacity: Int get() = buffer.capacity
     override val order: ByteOrder get() = when (buffer.byteOrder) {
@@ -50,12 +50,12 @@ class PlatformByteBuffer(private var buffer: PlatformBuffer) : ByteBuffer {
         }
 }
 
-actual fun ByteBuffer.Companion.allocate(capacity: Int): ByteBuffer = PlatformByteBuffer(
+internal actual fun ByteBuffer.Companion.allocate(capacity: Int): ByteBuffer = PlatformByteBuffer(
     PlatformBuffer.allocate(capacity,
         zone = AllocationZone.Direct,
         byteOrder = com.ditchoom.buffer.ByteOrder.BIG_ENDIAN)
 )
 
-actual fun ByteBuffer.Companion.wrap(array: ByteArray): ByteBuffer = PlatformByteBuffer(
+internal actual fun ByteBuffer.Companion.wrap(array: ByteArray): ByteBuffer = PlatformByteBuffer(
     PlatformBuffer.wrap(array, byteOrder = com.ditchoom.buffer.ByteOrder.BIG_ENDIAN)
 )
