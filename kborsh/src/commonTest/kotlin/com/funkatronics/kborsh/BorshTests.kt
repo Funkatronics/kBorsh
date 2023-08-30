@@ -135,14 +135,14 @@ class BorshTests {
     }
 
     @Test
-    fun testMapEncodesAsListOfKV() {
+    fun testMapEncodesAsSortedListOfKV() {
         // given
         val map = mapOf(1 to 1, 3 to 3, 2 to 2, 4 to 4)
         val sizeBytes = Int.SIZE_BYTES + Int.SIZE_BYTES*2*map.size
         val expectedBytes = ByteBuffer.allocate(sizeBytes).apply {
             order(ByteOrder.LITTLE_ENDIAN)
             putInt(map.size)
-            map.forEach { (k, v) -> putInt(k); putInt(v) }
+            map.keys.sorted().forEach { key -> putInt(key); putInt(map[key]!!) }
         }.array()
 
         // when

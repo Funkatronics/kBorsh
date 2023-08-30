@@ -105,8 +105,10 @@ class BorshEncoder : AbstractEncoder() {
 
     override fun <T> encodeSerializableValue(serializer: SerializationStrategy<T>, value: T) {
         when (value) {
-            is HashMap<*, *> -> super.encodeSerializableValue(serializer, value.keys.sortedBy { it.hashCode() }.associateWith { value[it] } as T)
-            is HashSet<*> -> super.encodeSerializableValue(serializer, value.sortedBy { it.hashCode() } as T)
+            is Map<*, *> -> super.encodeSerializableValue(serializer,
+                value.keys.sortedBy { it.hashCode() }.associateWith { value[it] } as T)
+            is Set<*> -> super.encodeSerializableValue(serializer,
+                value.sortedBy { it.hashCode() } as T)
             else -> super.encodeSerializableValue(serializer, value)
         }
     }
