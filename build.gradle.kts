@@ -1,6 +1,6 @@
 plugins {
-    kotlin("multiplatform") version "1.9.0" apply false
-    id("com.vanniktech.maven.publish") version "0.25.3" apply false
+    alias(libs.plugins.kotlin.multiplatform) apply  false
+    alias(libs.plugins.vanniktech.mavenPublish) apply false
 }
 
 //tasks.register("clean", Delete::class) {
