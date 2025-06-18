@@ -1,17 +1,12 @@
 plugins {
-    kotlin("multiplatform")
-    kotlin("plugin.serialization") version "1.9.0"
-    id("com.vanniktech.maven.publish")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.plugin.serialization)
+    alias(libs.plugins.vanniktech.mavenPublish)
 }
 
 kotlin {
-    jvm {
-        jvmToolchain(11)
-        withJava()
-        testRuns["test"].executionTask.configure {
-            useJUnitPlatform()
-        }
-    }
+    jvmToolchain(11)
+    jvm()
     listOf(
         iosX64(),
         iosArm64(),
@@ -44,19 +39,41 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0-RC")
-                implementation("io.github.funkatronics:multimult:0.2.0")
-                implementation("com.ditchoom:buffer:1.3.0")
+                implementation(libs.kotlinx.serialization.json)
+                implementation(libs.multimult)
+                implementation(libs.buffer)
             }
         }
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2")
+                implementation(libs.kotlin.test)
+                implementation(libs.kotlinx.coroutines.test)
             }
         }
-        val jvmMain by getting
+
+        val multiplatformMain by creating {
+            dependsOn(commonMain)
+        }
+
+        val jvmMain by getting {
+            dependsOn(multiplatformMain)
+        }
         val jvmTest by getting
+
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+
+        iosX64Main.dependsOn(multiplatformMain)
+        iosArm64Main.dependsOn(multiplatformMain)
+        iosSimulatorArm64Main.dependsOn(multiplatformMain)
+
+        val macosX64Main by getting
+        val macosArm64Main by getting
+
+        macosX64Main.dependsOn(multiplatformMain)
+        macosArm64Main.dependsOn(multiplatformMain)
+
 //        val jsMain by getting
 //        val jsTest by getting
 //        val nativeMain by getting
