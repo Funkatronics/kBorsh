@@ -7,6 +7,7 @@ plugins {
 kotlin {
     jvmToolchain(11)
     jvm()
+    androidTarget()
     listOf(
         iosX64(),
         iosArm64(),
@@ -59,6 +60,11 @@ kotlin {
             dependsOn(multiplatformMain)
         }
         val jvmTest by getting
+
+        val androidMain by getting {
+            dependsOn(multiplatformMain)
+        }
+        val androidTest by getting
 
         val iosX64Main by getting
         val iosArm64Main by getting
