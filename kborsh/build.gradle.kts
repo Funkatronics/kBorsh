@@ -2,12 +2,22 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.plugin.serialization)
     alias(libs.plugins.vanniktech.mavenPublish)
+    alias(libs.plugins.android.library)
+}
+
+android {
+    namespace = "com.funkatronics.kborsh"
+    compileSdk = 35
+    defaultConfig { minSdk = 21 }
+    publishing { singleVariant("release") }
 }
 
 kotlin {
     jvmToolchain(11)
+
     jvm()
     androidTarget()
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -19,7 +29,7 @@ kotlin {
             baseName = "kborsh"
         }
     }
-//    js(BOTH) {
+//    js {
 //        browser {
 //            commonWebpackConfig {
 //                cssSupport {
@@ -36,6 +46,8 @@ kotlin {
 //        isMingwX64 -> mingwX64("native")
 //        else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
 //    }
+
+    applyDefaultHierarchyTemplate()
 
     sourceSets {
         val commonMain by getting {
@@ -56,34 +68,18 @@ kotlin {
             dependsOn(commonMain)
         }
 
-        val jvmMain by getting {
-            dependsOn(multiplatformMain)
-        }
-        val jvmTest by getting
+        val jvmMain by getting { dependsOn(multiplatformMain) }
+        val androidMain by getting { dependsOn(multiplatformMain) }
 
-        val androidMain by getting {
-            dependsOn(multiplatformMain)
-        }
-        val androidTest by getting
+        val iosX64Main by getting { dependsOn(multiplatformMain) }
+        val iosArm64Main by getting { dependsOn(multiplatformMain) }
+        val iosSimulatorArm64Main by getting { dependsOn(multiplatformMain) }
 
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
+        val macosX64Main by getting { dependsOn(multiplatformMain) }
+        val macosArm64Main by getting { dependsOn(multiplatformMain) }
 
-        iosX64Main.dependsOn(multiplatformMain)
-        iosArm64Main.dependsOn(multiplatformMain)
-        iosSimulatorArm64Main.dependsOn(multiplatformMain)
-
-        val macosX64Main by getting
-        val macosArm64Main by getting
-
-        macosX64Main.dependsOn(multiplatformMain)
-        macosArm64Main.dependsOn(multiplatformMain)
-
-//        val jsMain by getting
-//        val jsTest by getting
-//        val nativeMain by getting
-//        val nativeTest by getting
+//        val jsMain by getting { dependsOn(multiplatformMain) }
+//        val nativeMain by getting { dependsOn(multiplatformMain) }
     }
 }
 
