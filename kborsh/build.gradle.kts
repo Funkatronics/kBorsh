@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.funkatronics.kborsh"
-    compileSdk = 35
+    compileSdk = 36
     defaultConfig { minSdk = 21 }
     publishing { singleVariant("release") }
 }
@@ -46,6 +46,8 @@ kotlin {
 //        isMingwX64 -> mingwX64("native")
 //        else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
 //    }
+
+    applyDefaultHierarchyTemplate()
 
     sourceSets {
         val commonMain by getting {
