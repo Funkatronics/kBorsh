@@ -47,8 +47,6 @@ kotlin {
 //        else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
 //    }
 
-    applyDefaultHierarchyTemplate()
-
     sourceSets {
         val commonMain by getting {
             dependencies {
