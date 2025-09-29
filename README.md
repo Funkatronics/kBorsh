@@ -1,5 +1,8 @@
 # kBorsh
 
+[![badge-latest-release]][url-latest-release]
+[![badge-kotlin]][url-kotlin]
+
 ## Borsh Kotlin Serialization Format
 
 This library provides a Borsh serialization format for kotlinx-serialization.
@@ -46,3 +49,12 @@ val encodedBorshBytes: ByteArray = Base64.getDecoder().decode(myEncodedBase64Str
 // decode serializable object from bytes
 val myObjectDecoded: MyObject = Borsh.decodeFromByteArray<MyObject>(encodedBorshBytes)
 ```
+
+<!-- TAG_VERSION -->
+[badge-latest-release]: https://img.shields.io/badge/dynamic/json.svg?url=https://api.github.com/repos/funkatronics/kborsh/releases/latest&query=tag_name&label=release&color=blue
+
+<!-- TAG_DEPENDENCIES -->
+[badge-kotlin]: https://img.shields.io/badge/kotlin-2.2.20-blue.svg?logo=kotlin
+
+[url-latest-release]: https://github.com/funkatronics/kborsh/releases/latest
+[url-kotlin]: https://kotlinlang.org
