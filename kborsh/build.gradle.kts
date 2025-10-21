@@ -14,10 +14,8 @@ android {
 
 kotlin {
     jvmToolchain(11)
-
     jvm()
     androidTarget()
-
     listOf(
         iosX64(),
         iosArm64(),
@@ -29,15 +27,10 @@ kotlin {
             baseName = "kborsh"
         }
     }
-//    js {
-//        browser {
-//            commonWebpackConfig {
-//                cssSupport {
-//                    enabled.set(true)
-//                }
-//            }
-//        }
-//    }
+    js {
+        browser()
+        nodejs()
+    }
 //    val hostOs = System.getProperty("os.name")
 //    val isMingwX64 = hostOs.startsWith("Windows")
 //    val nativeTarget = when {
@@ -76,7 +69,7 @@ kotlin {
         val macosX64Main by getting { dependsOn(multiplatformMain) }
         val macosArm64Main by getting { dependsOn(multiplatformMain) }
 
-//        val jsMain by getting { dependsOn(multiplatformMain) }
+        val jsMain by getting { dependsOn(multiplatformMain) }
 //        val nativeMain by getting { dependsOn(multiplatformMain) }
     }
 }

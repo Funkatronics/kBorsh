@@ -274,7 +274,7 @@ class BorshTests {
         val decodedObject = Borsh.decodeFromByteArray<BorshTestClass>(encodedBorsh)
 
         // then
-        assertEquals(testClass, decodedObject)
+        assertBorshEquals(testClass, decodedObject)
     }
 
     @Test
@@ -296,7 +296,40 @@ class BorshTests {
         val decodedObject = Borsh.decodeFromByteArray<BorshTestClass>(encodedBorsh)
 
         // then
-        assertEquals(testClass, decodedObject)
+        assertBorshEquals(testClass, decodedObject)
     }
     //endregion
+
+    private fun assertBorshEquals(expected: BorshTestClass, actual: BorshTestClass) {
+        assertEquals(expected.u8, actual.u8)
+        assertEquals(expected.u16, actual.u16)
+        assertEquals(expected.u32, actual.u32)
+        assertEquals(expected.u64, actual.u64)
+
+        assertEquals(expected.i8, actual.i8)
+        assertEquals(expected.i16, actual.i16)
+        assertEquals(expected.i32, actual.i32)
+        assertEquals(expected.i64, actual.i64)
+
+        // Floats don’t stringify the same on JS vs JVM (e.g. 123.4 vs 123.4000015),
+        // so we compare fields individually with a tolerance instead of relying on
+        // the data class equals() which would fail assertion here on JS.
+        assertEquals(expected.f32, actual.f32, 0.0001f)
+        assertEquals(expected.f64, actual.f64, 1e-9)
+
+        assertEquals(expected.string, actual.string)
+        assertEquals(expected.enum, actual.enum)
+
+        assertEquals(expected.optionalString, actual.optionalString)
+        assertEquals(expected.optionalNum, actual.optionalNum)
+
+        assertEquals(expected.list, actual.list)
+        assertEquals(expected.map, actual.map)
+        assertEquals(expected.hashMap, actual.hashMap)
+        assertEquals(expected.hashSet, actual.hashSet)
+
+        assertEquals(expected.struct, actual.struct)
+        assertEquals(expected.struct.name, actual.struct.name)
+        assertEquals(expected.struct.id, actual.struct.id)
+    }
 }
