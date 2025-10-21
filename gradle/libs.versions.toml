@@ -5,7 +5,7 @@ coroutines = "1.10.2"
 android = "8.12.3"
 
 buffer = "1.4.2"
-multimult = "0.2.5"
+multimult = "0.2.6"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
